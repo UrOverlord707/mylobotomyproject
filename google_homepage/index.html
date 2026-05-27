@@ -66,8 +66,10 @@
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            background: #e0e0e0;
-            display: block; 
+            background: #555555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .pfp-container img {
@@ -75,7 +77,6 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            pointer-events: none; 
         }
 
         .pfp-overlay {
@@ -87,13 +88,8 @@
             color: #fff;
             font-size: 11px;
             padding: 6px 0;
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-        }
-
-        .pfp-container:hover .pfp-overlay {
             opacity: 1;
+            pointer-events: none;
         }
 
         .profile-info h1 {
@@ -109,7 +105,6 @@
             text-transform: lowercase;
         }
 
-        /* Gothic Manga Tabs */
         .nav-tabs {
             display: flex;
             flex-direction: column;
@@ -152,7 +147,6 @@
             gap: 25px;
         }
 
-        /* MANGA ANIMATED BANNER PANEL */
         .banner-panel {
             border: var(--border-thick);
             background: var(--panel-bg);
@@ -165,9 +159,12 @@
             width: 100%;
             height: 200px;
             border: var(--border-thin);
-            background: #000000;
+            background: #222222;
             overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .banner-display-box img {
@@ -203,7 +200,6 @@
             color: #fff;
         }
 
-        /* Content Feed Areas */
         .feed-section {
             border: var(--border-thick);
             background: var(--panel-bg);
@@ -224,7 +220,6 @@
             padding-bottom: 5px;
         }
 
-        /* Form Feed Elements */
         .post-input-box {
             border-bottom: var(--border-thin);
             padding-bottom: 20px;
@@ -268,7 +263,7 @@
             margin-top: 12px;
         }
 
-        /* --- RIGHT SIDEBAR: CONNECT & VERTICAL BAY --- */
+        /* --- RIGHT SIDEBAR --- */
         .right-sidebar {
             display: flex;
             flex-direction: column;
@@ -294,7 +289,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
         }
 
         .social-icon {
@@ -320,7 +315,6 @@
             border-color: #fff;
         }
 
-        /* NEW VERTICAL BANNER MODULE STYLES */
         .vertical-banner-panel {
             border: var(--border-thick);
             background: var(--panel-bg);
@@ -335,9 +329,12 @@
             width: 100%;
             height: 400px;
             border: var(--border-thin);
-            background: #000000;
+            background: #333333;
             overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .vertical-display-box img {
@@ -347,7 +344,6 @@
             display: block;
         }
 
-        /* Editable Text Block Elements */
         .editable-area {
             border: 2px dashed #000;
             padding: 15px;
@@ -369,11 +365,11 @@
         <!-- ================= LEFT SIDEBAR ================= -->
         <aside class="left-sidebar">
             <div class="profile-panel">
-                <input type="file" id="pfp-file-uploader" accept="image/*" style="display: none;" onchange="loadProfilePicture(this)">
+                <input type="file" id="pfp-file-uploader" accept="image/*" style="display: none;">
                 
-                <div class="pfp-container" onclick="document.getElementById('pfp-file-uploader').click()">
-                    <img id="pfp-img" src="https://via.placeholder.com/150/000000/ffffff?text=OVERLORD" alt="Avatar">
-                    <div class="pfp-overlay">[CHANGE PFP]</div>
+                <div class="pfp-container" id="pfp-click-box">
+                    <img id="pfp-img" src="" alt="" style="display: none;">
+                    <div class="pfp-overlay" id="pfp-text-prompt">[CLICK TO CHOOSE PFP]</div>
                 </div>
                 <div class="profile-info">
                     <h1 id="profile-name">The lobotomy project</h1>
@@ -392,15 +388,15 @@
         <!-- ================= CENTER MAIN PANEL ================= -->
         <main class="main-content">
             
-            <!-- ANIMATED GIF BANNER DISPLAY -->
             <section class="banner-panel">
                 <div class="banner-display-box">
-                    <img id="banner-img" src="https://via.placeholder.com/800x200/000000/ffffff?text=GRID+SYSTEM+ACTIVE" alt="Banner Graphic">
+                    <img id="banner-img" src="" alt="" style="display: none;">
+                    <span id="banner-text-prompt" style="color: #fff; font-size: 1.2rem;">[ NO BANNER UPLOADED ]</span>
                 </div>
                 <div class="banner-controls">
                     <span class="banner-lbl">// TRANSMISSION BANNER</span>
-                    <input type="file" id="banner-file-uploader" accept="image/gif, image/*" style="display: none;" onchange="loadBannerGraphic(this)">
-                    <button class="radio-btn" onclick="document.getElementById('banner-file-uploader').click()">[CHANGE BANNER]</button>
+                    <input type="file" id="banner-file-uploader" accept="image/*" style="display: none;">
+                    <button class="radio-btn" id="banner-click-btn">[CHANGE BANNER]</button>
                 </div>
             </section>
 
@@ -428,7 +424,6 @@
             <!-- TAB 3: UPDATES FEED -->
             <section id="feed-updates" class="feed-section">
                 <h2>// LIVE TRANSMISSIONS</h2>
-                
                 <div class="post-input-box">
                     <textarea id="tweet-input" placeholder="BROADCAST A NEW STATUS UPDATE..."></textarea>
                     <div class="post-actions">
@@ -440,19 +435,15 @@
                     </div>
                     <div id="media-preview-status" style="font-size:0.9rem; margin-top:5px; color:#666;"></div>
                 </div>
-
                 <div id="tweet-feed-container">
                     <div class="tweet-card">
                         <div class="tweet-header">@OVERLORD • 2 HOURS AGO</div>
                         <div>SYSTEM ARCHITECTURE COMPLETED. AUDIO FREQUENCIES DISMANTLED. GRAPHICAL ENGINE HAS BEEN SUBSTANTIATED.</div>
-                        <div class="tweet-media">
-                            <img src="https://via.placeholder.com/600x250/000000/ffffff?text=MANGACORE+SYSTEM+PATCHED" alt="media">
-                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- TAB 4: ANONYMOUS GUESTBOOK MODULE -->
+            <!-- TAB 4: GUESTBOOK MODULE -->
             <section id="feed-guestbook" class="feed-section">
                 <h2>// ANONYMOUS TERMINAL SUBMISSIONS</h2>
                 <div class="post-input-box">
@@ -473,32 +464,32 @@
 
         <!-- ================= RIGHT SIDEBAR ================= -->
         <aside class="right-sidebar">
-            <!-- SOCIAL CONNECT SECTION -->
             <div class="connect-panel">
                 <h2>CONNECT</h2>
                 <div class="social-grid">
-                    <div id="link-tt" class="social-icon" onclick="navigateSocial('tt')" oncontextmenu="editSocialLink(event, 'tt')">
+                    <div id="link-tt" class="social-icon" onclick="navigateSocial('tt')">
                         <span>TT</span>
                     </div>
-                    <div id="link-ig" class="social-icon" onclick="navigateSocial('ig')" oncontextmenu="editSocialLink(event, 'ig')">
+                    <div id="link-ig" class="social-icon" onclick="navigateSocial('ig')">
                         <span>IG</span>
                     </div>
-                    <div id="link-dc" class="social-icon" onclick="navigateSocial('dc')" oncontextmenu="editSocialLink(event, 'dc')">
+                    <div id="link-dc" class="social-icon" onclick="navigateSocial('dc')">
                         <span>DC</span>
                     </div>
-                    <div id="link-st" class="social-icon" onclick="navigateSocial('st')" oncontextmenu="editSocialLink(event, 'st')">
+                    <div id="link-st" class="social-icon" onclick="navigateSocial('st')">
                         <span>ST</span>
                     </div>
                 </div>
+                <button class="radio-btn" style="width:100%; text-align:center; font-size:1rem;" onclick="triggerLinkConfigurationSequence()">[EDIT LINKS]</button>
             </div>
 
-            <!-- NEW VERTICAL BANNER MODULE DESIGNATED HERE -->
             <div class="vertical-banner-panel">
                 <div class="vertical-display-box">
-                    <img id="vertical-banner-img" src="https://via.placeholder.com/280x400/000000/ffffff?text=VERTICAL+DISPLAY+BAY" alt="Vertical Banner Graphic">
+                    <img id="vertical-banner-img" src="" alt="" style="display: none;">
+                    <span id="vertical-text-prompt" style="color: #fff; font-size: 1.1rem; text-align: center;">[ NO VERTICAL UPLOADED ]</span>
                 </div>
-                <input type="file" id="vertical-file-uploader" accept="image/gif, image/*" style="display: none;" onchange="loadVerticalBanner(this)">
-                <button class="radio-btn" style="width: 100%; text-align: center;" onclick="document.getElementById('vertical-file-uploader').click()">[UPLOAD VERTICAL]</button>
+                <input type="file" id="vertical-file-uploader" accept="image/*" style="display: none;">
+                <button class="radio-btn" style="width: 100%; text-align: center;" id="vertical-click-btn">[UPLOAD VERTICAL]</button>
             </div>
         </aside>
 
@@ -506,145 +497,182 @@
 
     <!-- ================= BRAIN INTERFACE JAVASCRIPT ================= -->
     <script>
-        /* --- SECURE TAB ROUTING MATRIX --- */
+        /* --- 💎 FAUST'S COMPARED GLOBAL ASSET REGISTRY --- */
+        const UNIVERSAL_PFP_URL = "";      
+        const UNIVERSAL_BANNER_URL = "";   
+        const UNIVERSAL_VERTICAL_URL = "https://files.catbox.moe/aktolg.jpg"; 
+
+
         function switchTab(tabId) {
-            document.querySelectorAll('.feed-section').forEach(feed => {
-                feed.classList.remove('active-feed');
-            });
-            document.querySelectorAll('.nav-tabs .tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.feed-section').forEach(feed => feed.classList.remove('active-feed'));
+            document.querySelectorAll('.nav-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
             
             const targetFeed = document.getElementById(`feed-${tabId}`);
             const targetBtn = document.getElementById(`btn-${tabId}`);
-            
             if (targetFeed && targetBtn) {
                 targetFeed.classList.add('active-feed');
                 targetBtn.classList.add('active');
             }
         }
 
-        /* --- STABLE STORAGE LIFECYCLE ROUTINES --- */
+        let socialLinksRegistry = { 
+            tt: "https://twitch.tv", 
+            ig: "https://instagram.com", 
+            dc: "https://discord.com", 
+            st: "https://store.steampowered.com" 
+        };
+
+        /* --- HYBRID ASSET LOADING ENGINES --- */
         window.addEventListener('DOMContentLoaded', () => {
-            const archivedAvatarData = localStorage.getItem('lobotomy_saved_pfp');
-            if (archivedAvatarData) {
-                document.getElementById('pfp-img').src = archivedAvatarData;
+            const savedPfp = localStorage.getItem('lobotomy_saved_pfp');
+            const savedBanner = localStorage.getItem('lobotomy_saved_banner');
+            const savedVertical = localStorage.getItem('lobotomy_saved_vertical');
+            const savedRegistry = localStorage.getItem('lobotomy_saved_links');
+
+            if (savedRegistry) {
+                try { socialLinksRegistry = JSON.parse(savedRegistry); } catch(e) {}
             }
 
-            const archivedBannerData = localStorage.getItem('lobotomy_saved_banner');
-            if (archivedBannerData) {
-                document.getElementById('banner-img').src = archivedBannerData;
+            // 1. Process Profile Picture Display Matrix
+            const pfpImg = document.getElementById('pfp-img');
+            if (UNIVERSAL_PFP_URL.trim() !== "") {
+                pfpImg.src = UNIVERSAL_PFP_URL;
+                pfpImg.style.display = 'block';
+                document.getElementById('pfp-text-prompt').textContent = "[CHANGE PFP]";
+            } else if (savedPfp) {
+                pfpImg.src = savedPfp;
+                pfpImg.style.display = 'block';
+                document.getElementById('pfp-text-prompt').textContent = "[CHANGE PFP]";
             }
 
-            // Initialization load for the vertical banner asset sequence
-            const archivedVerticalData = localStorage.getItem('lobotomy_saved_vertical');
-            if (archivedVerticalData) {
-                document.getElementById('vertical-banner-img').src = archivedVerticalData;
+            // 2. Process Horizontal Banner Matrix
+            const bannerImg = document.getElementById('banner-img');
+            if (UNIVERSAL_BANNER_URL.trim() !== "") {
+                bannerImg.src = UNIVERSAL_BANNER_URL;
+                bannerImg.style.display = 'block';
+                if(document.getElementById('banner-text-prompt')) document.getElementById('banner-text-prompt').style.display = 'none';
+            } else if (savedBanner) {
+                bannerImg.src = savedBanner;
+                bannerImg.style.display = 'block';
+                if(document.getElementById('banner-text-prompt')) document.getElementById('banner-text-prompt').style.display = 'none';
+            }
+
+            // 3. Process Vertical Banner Matrix
+            const verticalImg = document.getElementById('vertical-banner-img');
+            if (UNIVERSAL_VERTICAL_URL.trim() !== "") {
+                verticalImg.src = UNIVERSAL_VERTICAL_URL;
+                verticalImg.style.display = 'block';
+                if(document.getElementById('vertical-text-prompt')) document.getElementById('vertical-text-prompt').style.display = 'none';
+            } else if (savedVertical) {
+                verticalImg.src = savedVertical;
+                verticalImg.style.display = 'block';
+                if(document.getElementById('vertical-text-prompt')) document.getElementById('vertical-text-prompt').style.display = 'none';
             }
         });
 
-        /* --- SECURE BASE64 MEMORY BINDERS --- */
-        function loadProfilePicture(input) {
-            const file = input.files[0];
+        /* --- FILE UPLOADER HANDLERS --- */
+        document.getElementById('pfp-click-box').addEventListener('click', () => {
+            document.getElementById('pfp-file-uploader').click();
+        });
+
+        document.getElementById('pfp-file-uploader').addEventListener('change', function() {
+            const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    const dataUrlResult = e.target.result;
-                    document.getElementById('pfp-img').src = dataUrlResult;
-                    try {
-                        localStorage.setItem('lobotomy_saved_pfp', dataUrlResult);
-                    } catch (error) {
-                        console.warn("Storage warning: Local data array bounds saturated.");
-                    }
+                    const img = document.getElementById('pfp-img');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    document.getElementById('pfp-text-prompt').textContent = "[CHANGE PFP]";
+                    try { localStorage.setItem('lobotomy_saved_pfp', e.target.result); } catch(err) {}
                 };
                 reader.readAsDataURL(file);
             }
-        }
+        });
 
-        function loadBannerGraphic(input) {
-            const file = input.files[0];
+        document.getElementById('banner-click-btn').addEventListener('click', () => {
+            document.getElementById('banner-file-uploader').click();
+        });
+
+        document.getElementById('banner-file-uploader').addEventListener('change', function() {
+            const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    const dataUrlResult = e.target.result;
-                    document.getElementById('banner-img').src = dataUrlResult;
-                    try {
-                        localStorage.setItem('lobotomy_saved_banner', dataUrlResult);
-                    } catch (error) {
-                        alert("ERROR: HORIZONTAL BANNER CAPACITY EXCEEDED.");
-                    }
+                    const img = document.getElementById('banner-img');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    if(document.getElementById('banner-text-prompt')) document.getElementById('banner-text-prompt').style.display = 'none';
+                    try { localStorage.setItem('lobotomy_saved_banner', e.target.result); } catch(err) {}
                 };
                 reader.readAsDataURL(file);
             }
-        }
+        });
 
-        // New processing script handling vertical image assets
-        function loadVerticalBanner(input) {
-            const file = input.files[0];
+        document.getElementById('vertical-click-btn').addEventListener('click', () => {
+            document.getElementById('vertical-file-uploader').click();
+        });
+
+        document.getElementById('vertical-file-uploader').addEventListener('change', function() {
+            const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    const dataUrlResult = e.target.result;
-                    document.getElementById('vertical-banner-img').src = dataUrlResult;
-                    try {
-                        localStorage.setItem('lobotomy_saved_vertical', dataUrlResult);
-                    } catch (error) {
-                        alert("ERROR: VERTICAL BANNER CAPACITY EXCEEDED. Optimize the file resolution.");
-                    }
+                    const img = document.getElementById('vertical-banner-img');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    if(document.getElementById('vertical-text-prompt')) document.getElementById('vertical-text-prompt').style.display = 'none';
+                    try { localStorage.setItem('lobotomy_saved_vertical', e.target.result); } catch(err) {}
                 };
                 reader.readAsDataURL(file);
             }
-        }
+        });
 
-        /* --- SOCIAL LINKS DATABASE REGISTER --- */
-        const socialLinksRegistry = {
-            tt: "https://twitch.tv",
-            ig: "https://instagram.com",
-            dc: "https://discord.com",
-            st: "https://store.steampowered.com"
-        };
-
+        /* --- CONNECTIVITY PORTS --- */
         function navigateSocial(platformKey) {
-            const destination = socialLinksRegistry[platformKey];
-            if (destination && destination !== "#") {
-                window.open(destination, '_blank');
+            const dest = socialLinksRegistry[platformKey];
+            if (dest && dest !== "#") {
+                window.open(dest, '_blank');
+            } else {
+                alert(`NO DESTINATION ASSIGNED TO [${platformKey.toUpperCase()}].`);
             }
         }
 
-        function editSocialLink(event, platformKey) {
-            event.preventDefault(); 
-            const currentUrl = socialLinksRegistry[platformKey];
-            const newUrl = prompt(`ENTER URL FOR [${platformKey.toUpperCase()}]:`, currentUrl);
+        function triggerLinkConfigurationSequence() {
+            const platforms = ['tt', 'ig', 'dc', 'st'];
+            const labels = { tt: 'TWITCH / TIKTOK', ig: 'INSTAGRAM', dc: 'DISCORD', st: 'STEAM' };
             
-            if (newUrl !== null) {
-                let formattedUrl = newUrl.trim();
-                if (formattedUrl && !/^https?:\/\//i.test(formattedUrl)) {
-                    formattedUrl = 'https://' + formattedUrl;
+            alert("LAUNCHING SOCIAL LINK PROGRAMMING INTERFACE.");
+
+            platforms.forEach(key => {
+                const currentUrl = socialLinksRegistry[key];
+                const newUrl = prompt(`ENTER DESTINATION URL FOR [${labels[key]}]:`, currentUrl);
+                
+                if (newUrl !== null) {
+                    let formattedUrl = newUrl.trim();
+                    if (formattedUrl && !/^https?:\/\//i.test(formattedUrl)) {
+                        formattedUrl = 'https://' + formattedUrl;
+                    }
+                    socialLinksRegistry[key] = formattedUrl || "#";
                 }
-                socialLinksRegistry[platformKey] = formattedUrl || "#";
-            }
+            });
+
+            try {
+                localStorage.setItem('lobotomy_saved_links', JSON.stringify(socialLinksRegistry));
+                alert("NETWORK CONFIGURATION MAP COMMITTED.");
+            } catch(e) {}
         }
 
-        /* --- JOURNAL ENGINE --- */
+        /* --- CONTENT MODULE CORES --- */
         function addJournalEntry() {
             const text = document.getElementById('journal-input').value;
             if(!text.trim()) return;
-
-            const now = new Date();
-            const timestamp = now.toLocaleDateString() + " @ " + now.toLocaleTimeString();
-            
-            const entryHTML = `
-                <div class="tweet-card" style="border-left: 8px solid #000;">
-                    <div class="tweet-header">// LOGGED: ${timestamp.toUpperCase()}</div>
-                    <div style="white-space: pre-wrap;">${text.toUpperCase()}</div>
-                </div>
-            `;
-            
+            const timestamp = new Date().toLocaleDateString() + " @ " + new Date().toLocaleTimeString();
+            const entryHTML = `<div class="tweet-card" style="border-left: 8px solid #000;"><div class="tweet-header">// LOGGED: ${timestamp.toUpperCase()}</div><div style="white-space: pre-wrap;">${text.toUpperCase()}</div></div>`;
             document.getElementById('journal-entries-container').insertAdjacentHTML('afterbegin', entryHTML);
             document.getElementById('journal-input').value = "";
         }
 
-        /* --- TRANSMISSION/UPDATES ENGINE --- */
         let attachedMediaUrl = null;
         let attachedMediaType = null;
 
@@ -659,48 +687,26 @@
 
         function publishTweet() {
             const text = document.getElementById('tweet-input').value;
-            const handle = document.getElementById('profile-handle').textContent;
-            
             if(!text.trim() && !attachedMediaUrl) return;
-
             let mediaHTML = '';
             if(attachedMediaUrl) {
-                if(attachedMediaType === 'video') {
-                    mediaHTML = `<div class="tweet-media"><video src="${attachedMediaUrl}" controls></video></div>`;
-                } else {
-                    mediaHTML = `<div class="tweet-media"><img src="${attachedMediaUrl}" alt="uploaded file"></div>`;
-                }
+                mediaHTML = attachedMediaType === 'video' ? `<div class="tweet-media"><video src="${attachedMediaUrl}" controls></video></div>` : `<div class="tweet-media"><img src="${attachedMediaUrl}" alt="media"></div>`;
             }
-
-            const tweetHTML = `
-                <div class="tweet-card">
-                    <div class="tweet-header">${handle.toUpperCase()} • JUST NOW</div>
-                    <div>${text.toUpperCase()}</div>
-                    ${mediaHTML}
-                </div>
-            `;
-
+            const tweetHTML = `<div class="tweet-card"><div class="tweet-header">@OVERLORD • JUST NOW</div><div>${text.toUpperCase()}</div>${mediaHTML}</div>`;
             document.getElementById('tweet-feed-container').insertAdjacentHTML('afterbegin', tweetHTML);
             document.getElementById('tweet-input').value = "";
-            document.getElementById('tweet-media-input').value = "";
             document.getElementById('media-preview-status').textContent = "";
             attachedMediaUrl = null;
-            attachedMediaType = null;
         }
 
-        /* --- GUESTBOOK SUBMISSION ROUTINES --- */
         function submitGuestbookMessage() {
             const msgText = document.getElementById('guestbook-input').value;
             if(!msgText.trim()) return;
-
-            const now = new Date();
-            const timestamp = now.toLocaleDateString() + " @ " + now.toLocaleTimeString();
-
-            const responseHTML = `
-                <div class="tweet-card" style="border-left: 5px dashed #000;">
-                    <div class="tweet-header">// ANON TRANSMISSION • AT ${timestamp.toUpperCase()}</div>
-                    <div style="white-space: pre-wrap;">${msgText.toUpperCase()}</div>
-                </div>
-            `;
-
+            const timestamp = new Date().toLocaleDateString() + " @ " + new Date().toLocaleTimeString();
+            const responseHTML = `<div class="tweet-card" style="border-left: 5px dashed #000;"><div class="tweet-header">// ANON TRANSMISSION • AT ${timestamp.toUpperCase()}</div><div style="white-space: pre-wrap;">${msgText.toUpperCase()}</div></div>`;
             document.getElementById('guestbook-messages-container').insertAdjacentHTML('afterbegin', responseHTML);
+            document.getElementById('guestbook-input').value = "";
+        }
+    </script>
+</body>
+</html>
